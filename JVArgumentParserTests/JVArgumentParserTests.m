@@ -134,4 +134,19 @@
     XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
 }
 
+- (void)testUnknownOptionInGroup
+{
+    NSError *error = nil;
+
+    [parser addOptionWithName:'a' block:^{
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-ab"] error:&error];
+
+    XCTAssertNil(arguments, @"There should be no arguments");
+    XCTAssertNotNil(error, @"There should be an error");
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
+    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
+}
+
 @end

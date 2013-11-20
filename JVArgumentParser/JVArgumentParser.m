@@ -55,6 +55,9 @@
             if (option == nil)
                 return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
 
+            if (arg.length > 2)
+                return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+
             if (option.hasArgument) {
                 optionAwaitingArgument = option;
             } else {
