@@ -16,7 +16,7 @@
     parser = [JVArgumentParser argumentParser];
 }
 
-- (void)testOptionWithoutArgument
+- (void)testOption
 {
     __block BOOL a = FALSE;
 
