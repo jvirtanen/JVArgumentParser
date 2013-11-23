@@ -44,6 +44,20 @@
     XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
 }
 
+- (void)testOptionWithArgumentWithoutOptionalSpaceInBetween
+{
+    __block NSString *a = nil;
+
+    [parser addOptionWithArgumentWithName:'a' block:^(NSString *argument){
+        a = argument;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-afoo"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
+}
+
 - (void)testParsing
 {
     __block NSString *d = nil;
