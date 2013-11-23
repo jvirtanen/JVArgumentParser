@@ -41,9 +41,6 @@
         }
 
         if ((arg.length > 0) && ([arg characterAtIndex:0] == '-')) {
-            if (optionAwaitingArgument != nil)
-                return [self failWithCode:JVArgumentParserErrorMissingArgument error:error];
-
             if (arg.length == 1) {
                 [arguments addObject:arg];
                 continue;
