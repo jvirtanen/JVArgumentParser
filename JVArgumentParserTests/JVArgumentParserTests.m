@@ -58,6 +58,26 @@
     XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
 }
 
+- (void)testEndOfOptions
+{
+    __block BOOL a = FALSE;
+    __block BOOL b = FALSE;
+
+    [parser addOptionWithName:'a' block:^{
+        a = TRUE;
+    }];
+
+    [parser addOptionWithName:'b' block:^{
+        b = TRUE;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-a", @"--", @"-b"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[@"-b"], @"There should be arguments");
+    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertFalse(b, @"Option '-b' should not be parsed");
+}
+
 - (void)testParsing
 {
     __block NSString *d = nil;

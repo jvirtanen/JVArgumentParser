@@ -29,7 +29,9 @@
     NSMutableArray *arguments = [NSMutableArray array];
     JVOption *optionAwaitingArgument = nil;
 
-    for (NSUInteger i = 0; i < args.count; i++) {
+    NSUInteger i;
+
+    for (i = 0; i < args.count; i++) {
         NSString *arg = args[i];
 
         if (optionAwaitingArgument != nil) {
@@ -38,6 +40,11 @@
 
             optionAwaitingArgument = nil;
             continue;
+        }
+
+        if ([arg isEqualToString:@"--"]) {
+            i++;
+            break;
         }
 
         if ((arg.length > 0) && ([arg characterAtIndex:0] == '-')) {
@@ -73,6 +80,9 @@
 
     if (optionAwaitingArgument != nil)
         return [self failWithCode:JVArgumentParserErrorMissingArgument error:error];
+
+    while (i < args.count)
+        [arguments addObject:args[i++]];
 
     return arguments;
 }
