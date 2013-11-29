@@ -58,6 +58,110 @@
     XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
 }
 
+- (void)testOptionGroup
+{
+    __block BOOL a = FALSE;
+    __block BOOL b = FALSE;
+    __block BOOL c = FALSE;
+
+    [parser addOptionWithName:'a' block:^{
+        a = TRUE;
+    }];
+
+    [parser addOptionWithName:'b' block:^{
+        b = TRUE;
+    }];
+
+    [parser addOptionWithName:'c' block:^{
+        c = TRUE;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-ab"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertTrue(b, @"Option '-b' should be parsed");
+    XCTAssertFalse(c, @"Option '-c' should not be parsed");
+}
+
+- (void)testOptionGroupTerminatedByOptionWithArgument
+{
+    __block BOOL a = FALSE;
+    __block BOOL b = FALSE;
+    __block NSString *c = nil;
+
+    [parser addOptionWithName:'a' block:^{
+        a = TRUE;
+    }];
+
+    [parser addOptionWithName:'b' block:^{
+        b = TRUE;
+    }];
+
+    [parser addOptionWithArgumentWithName:'c' block:^(NSString *argument){
+        c = argument;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-abc", @"foo"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertTrue(b, @"Option '-b' should be parsed");
+    XCTAssertEqualObjects(c, @"foo", @"Option '-c' should be parsed");
+}
+
+- (void)testOptionGroupTerminatedByOptionWithArgumentWithoutOptionalSpaceInBetween
+{
+    __block BOOL a = FALSE;
+    __block BOOL b = FALSE;
+    __block NSString *c = nil;
+
+    [parser addOptionWithName:'a' block:^{
+        a = TRUE;
+    }];
+
+    [parser addOptionWithName:'b' block:^{
+        b = TRUE;
+    }];
+
+    [parser addOptionWithArgumentWithName:'c' block:^(NSString *argument){
+        c = argument;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-abcfoo"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertTrue(b, @"Option '-b' should be parsed");
+    XCTAssertEqualObjects(c, @"foo", @"Option '-c' should be parsed");
+}
+
+- (void)testOptionGroupWithOptionWithArgument
+{
+    __block BOOL a = FALSE;
+    __block NSString *b = nil;
+    __block BOOL c = FALSE;
+
+    [parser addOptionWithName:'a' block:^{
+        a = TRUE;
+    }];
+
+    [parser addOptionWithArgumentWithName:'b' block:^(NSString *argument) {
+        b = argument;
+    }];
+
+    [parser addOptionWithName:'c' block:^{
+        c = TRUE;
+    }];
+
+    NSArray *arguments = [parser parse:@[@"-abc"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertEqualObjects(b, @"c", @"Option '-b' should be parsed");
+    XCTAssertFalse(c, @"Option '-c' should not be parsed");
+}
+
 - (void)testEndOfOptions
 {
     __block BOOL a = FALSE;

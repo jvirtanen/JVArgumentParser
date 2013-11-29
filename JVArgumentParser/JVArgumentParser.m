@@ -53,25 +53,25 @@
                 continue;
             }
 
-            unichar name = [arg characterAtIndex:1];
-            JVOption *option = [_options objectForKey:[self keyForName:name]];
+            for (NSUInteger j = 1; j < arg.length; j++) {
+                unichar name = [arg characterAtIndex:j];
+                JVOption *option = [_options objectForKey:[self keyForName:name]];
 
-            if (option == nil)
-                return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
-
-            if (option.hasArgument) {
-                if (arg.length > 2) {
-                    JVOptionWithArgumentHandler block = option.block;
-                    block([arg substringFromIndex:2]);
-                } else {
-                    optionAwaitingArgument = option;
-                }
-            } else {
-                if (arg.length > 2)
+                if (option == nil)
                     return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
 
-                JVOptionHandler block = option.block;
-                block();
+                if (option.hasArgument) {
+                    if (arg.length > j + 1) {
+                        JVOptionWithArgumentHandler block = option.block;
+                        block([arg substringFromIndex:j + 1]);
+                    } else {
+                        optionAwaitingArgument = option;
+                    }
+                    break;
+                } else {
+                    JVOptionHandler block = option.block;
+                    block();
+                }
             }
         } else {
             [arguments addObject:arg];
