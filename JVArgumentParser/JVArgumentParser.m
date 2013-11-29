@@ -104,10 +104,24 @@
     [_options setObject:option forKey:[self keyForName:name]];
 }
 
+- (void)addOptionWithName:(unichar)name variable:(BOOL *)variable
+{
+    [self addOptionWithName:name block:^{
+        *variable = TRUE;
+    }];
+}
+
 - (void)addOptionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block
 {
     JVOption *option = [JVOption optionWithArgumentWithName:name block:block];
     [_options setObject:option forKey:[self keyForName:name]];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name variable:(NSString __strong **)variable
+{
+    [self addOptionWithArgumentWithName:name block:^(NSString *argument){
+        *variable = argument;
+    }];
 }
 
 - (NSArray *)failWithCode:(NSInteger)code error:(NSError **)error
