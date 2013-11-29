@@ -47,12 +47,12 @@
             break;
         }
 
-        if ((arg.length > 0) && ([arg characterAtIndex:0] == '-')) {
-            if (arg.length == 1) {
-                [arguments addObject:arg];
-                continue;
-            }
+        if ([arg isEqualToString:@"-"]) {
+            [arguments addObject:arg];
+            continue;
+        }
 
+        if ([arg hasPrefix:@"-"]) {
             for (NSUInteger j = 1; j < arg.length; j++) {
                 unichar name = [arg characterAtIndex:j];
                 JVOption *option = [_options objectForKey:[self keyForName:name]];
