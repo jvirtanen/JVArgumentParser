@@ -2,19 +2,18 @@
 
 @implementation JVOption
 
-+ (instancetype)optionWithName:(unichar)name block:(JVOptionHandler)block
++ (instancetype)optionWithBlock:(JVOptionHandler)block
 {
-    return [[self alloc] initWithName:name block:block argument:FALSE];
+    return [[self alloc] initWithBlock:block argument:FALSE];
 }
 
-+ (instancetype)optionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block
++ (instancetype)optionWithArgumentWithBlock:(JVOptionWithArgumentHandler)block
 {
-    return [[self alloc] initWithName:name block:block argument:TRUE];
+    return [[self alloc] initWithBlock:block argument:TRUE];
 }
 
-- (instancetype)initWithName:(unichar)name block:(id)block argument:(BOOL)argument
+- (instancetype)initWithBlock:(id)block argument:(BOOL)argument
 {
-    _name = name;
     _block = block;
     _hasArgument = argument;
 

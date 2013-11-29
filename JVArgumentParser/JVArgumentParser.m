@@ -99,7 +99,7 @@
 
 - (void)addOptionWithName:(unichar)name block:(JVOptionHandler)block
 {
-    JVOption *option = [JVOption optionWithName:name block:block];
+    JVOption *option = [JVOption optionWithBlock:block];
 
     [_options setObject:option forKey:[self keyForName:name]];
 }
@@ -113,7 +113,7 @@
 
 - (void)addOptionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block
 {
-    JVOption *option = [JVOption optionWithArgumentWithName:name block:block];
+    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
     [_options setObject:option forKey:[self keyForName:name]];
 }
 
