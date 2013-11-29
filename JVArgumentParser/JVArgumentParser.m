@@ -10,6 +10,7 @@
 
 @implementation JVArgumentParser {
     NSMutableDictionary *_options;
+    NSMutableDictionary *_longOptions;
 }
 
 + (instancetype)argumentParser
@@ -20,6 +21,7 @@
 - (instancetype)init
 {
     _options = [NSMutableDictionary dictionary];
+    _longOptions = [NSMutableDictionary dictionary];
 
     return self;
 }
@@ -52,7 +54,17 @@
             continue;
         }
 
-        if ([arg hasPrefix:@"-"]) {
+        if ([arg hasPrefix:@"--"]) {
+            NSString *name = [arg substringFromIndex:2];
+            JVOption *option = [_longOptions objectForKey:name];
+
+            if (option == nil)
+                return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+
+            JVOptionHandler block = option.block;
+            block();
+        }
+        else if ([arg hasPrefix:@"-"]) {
             for (NSUInteger j = 1; j < arg.length; j++) {
                 unichar name = [arg characterAtIndex:j];
                 JVOption *option = [_options objectForKey:[self keyForName:name]];
@@ -107,6 +119,20 @@
 - (void)addOptionWithName:(unichar)name variable:(BOOL *)variable
 {
     [self addOptionWithName:name block:^{
+        *variable = TRUE;
+    }];
+}
+
+- (void)addOptionWithLongName:(NSString *)name block:(JVOptionHandler)block
+{
+    JVOption *option = [JVOption optionWithBlock:block];
+
+    [_longOptions setObject:option forKey:name];
+}
+
+- (void)addOptionWithLongName:(NSString *)name variable:(BOOL *)variable
+{
+    [self addOptionWithLongName:name block:^{
         *variable = TRUE;
     }];
 }

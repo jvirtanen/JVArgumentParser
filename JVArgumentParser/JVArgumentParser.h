@@ -13,6 +13,8 @@
                  error:(NSError **)error;
 - (void)addOptionWithName:(unichar)name block:(JVOptionHandler)block;
 - (void)addOptionWithName:(unichar)name variable:(BOOL *)variable;
+- (void)addOptionWithLongName:(NSString *)name block:(JVOptionHandler)block;
+- (void)addOptionWithLongName:(NSString *)name variable:(BOOL *)variable;
 - (void)addOptionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block;
 - (void)addOptionWithArgumentWithName:(unichar)name variable:(NSString __strong **)variable;
 @end

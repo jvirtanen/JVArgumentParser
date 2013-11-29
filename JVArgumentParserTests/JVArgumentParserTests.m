@@ -28,6 +28,18 @@
     XCTAssertTrue(a, @"Option '-a' should be parsed");
 }
 
+- (void)testLongOption
+{
+    BOOL foo = FALSE;
+
+    [parser addOptionWithLongName:@"foo" variable:&foo];
+
+    NSArray *arguments = [parser parse:@[@"--foo"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertTrue(foo, @"Option '--foo' should be parsed");
+}
+
 - (void)testOptionWithArgument
 {
     NSString *a = nil;
@@ -207,6 +219,18 @@
     NSError *error = nil;
 
     NSArray *arguments = [parser parse:@[@"-a"] error:&error];
+
+    XCTAssertNil(arguments, @"There should be no arguments");
+    XCTAssertNotNil(error, @"There should be an error");
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
+    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
+}
+
+- (void)testUnknownLongOption
+{
+    NSError *error = nil;
+
+    NSArray *arguments = [parser parse:@[@"--foo"] error:&error];
 
     XCTAssertNil(arguments, @"There should be no arguments");
     XCTAssertNotNil(error, @"There should be an error");
