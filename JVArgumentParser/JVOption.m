@@ -2,12 +2,12 @@
 
 @implementation JVOption
 
-+ (instancetype)optionWithName:(unichar)name block:(void (^)(void))block
++ (instancetype)optionWithName:(unichar)name block:(JVOptionHandler)block
 {
     return [[self alloc] initWithName:name block:block argument:FALSE];
 }
 
-+ (instancetype)optionWithArgumentWithName:(unichar)name block:(void (^)(NSString *))block
++ (instancetype)optionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block
 {
     return [[self alloc] initWithName:name block:block argument:TRUE];
 }
