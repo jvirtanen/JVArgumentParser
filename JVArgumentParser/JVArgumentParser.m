@@ -146,16 +146,16 @@
     }];
 }
 
-- (void)addOptionWithLongName:(NSString *)name block:(JVOptionHandler)block
+- (void)addOptionWithLongName:(NSString *)longName block:(JVOptionHandler)block
 {
     JVOption *option = [JVOption optionWithBlock:block];
 
-    [_longOptions setObject:option forKey:name];
+    [_longOptions setObject:option forKey:longName];
 }
 
-- (void)addOptionWithLongName:(NSString *)name variable:(BOOL *)variable
+- (void)addOptionWithLongName:(NSString *)longName variable:(BOOL *)variable
 {
-    [self addOptionWithLongName:name block:^{
+    [self addOptionWithLongName:longName block:^{
         *variable = TRUE;
     }];
 }
@@ -173,15 +173,15 @@
     }];
 }
 
-- (void)addOptionWithArgumentWithLongName:(NSString *)name block:(JVOptionWithArgumentHandler)block
+- (void)addOptionWithArgumentWithLongName:(NSString *)longName block:(JVOptionWithArgumentHandler)block
 {
     JVOption *option = [JVOption optionWithArgumentWithBlock:block];
-    [_longOptions setObject:option forKey:name];
+    [_longOptions setObject:option forKey:longName];
 }
 
-- (void)addOptionWithArgumentWithLongName:(NSString *)name variable:(NSString *__strong *)variable
+- (void)addOptionWithArgumentWithLongName:(NSString *)longName variable:(NSString *__strong *)variable
 {
-    [self addOptionWithArgumentWithLongName:name block:^(NSString *argument){
+    [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
         *variable = argument;
     }];
 }
