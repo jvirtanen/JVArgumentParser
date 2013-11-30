@@ -64,6 +64,18 @@
     XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
 }
 
+- (void)testLongOptionWithArgument
+{
+    NSString *foo = nil;
+
+    [parser addOptionWithArgumentWithLongName:@"foo" variable:&foo];
+
+    NSArray *arguments = [parser parse:@[@"--foo", @"bar"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
+    XCTAssertEqualObjects(foo, @"bar", @"Option '--foo' should be parsed");
+}
+
 - (void)testOptionGroup
 {
     BOOL a = FALSE;

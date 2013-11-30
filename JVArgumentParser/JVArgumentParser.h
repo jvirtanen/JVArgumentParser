@@ -17,4 +17,6 @@
 - (void)addOptionWithLongName:(NSString *)name variable:(BOOL *)variable;
 - (void)addOptionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block;
 - (void)addOptionWithArgumentWithName:(unichar)name variable:(NSString __strong **)variable;
+- (void)addOptionWithArgumentWithLongName:(NSString *)name block:(JVOptionWithArgumentHandler)block;
+- (void)addOptionWithArgumentWithLongName:(NSString *)name variable:(NSString __strong **)variable;
 @end

@@ -61,8 +61,12 @@
             if (option == nil)
                 return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
 
-            JVOptionHandler block = option.block;
-            block();
+            if (option.hasArgument) {
+                optionAwaitingArgument = option;
+            } else {
+                JVOptionHandler block = option.block;
+                block();
+            }
         }
         else if ([arg hasPrefix:@"-"]) {
             for (NSUInteger j = 1; j < arg.length; j++) {
@@ -146,6 +150,19 @@
 - (void)addOptionWithArgumentWithName:(unichar)name variable:(NSString __strong **)variable
 {
     [self addOptionWithArgumentWithName:name block:^(NSString *argument){
+        *variable = argument;
+    }];
+}
+
+- (void)addOptionWithArgumentWithLongName:(NSString *)name block:(JVOptionWithArgumentHandler)block
+{
+    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
+    [_longOptions setObject:option forKey:name];
+}
+
+- (void)addOptionWithArgumentWithLongName:(NSString *)name variable:(NSString *__strong *)variable
+{
+    [self addOptionWithArgumentWithLongName:name block:^(NSString *argument){
         *variable = argument;
     }];
 }
