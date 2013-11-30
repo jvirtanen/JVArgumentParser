@@ -160,6 +160,18 @@
     }];
 }
 
+- (void)addOptionWithName:(unichar)name longName:(NSString *)longName block:(JVOptionHandler)block
+{
+    [self addOptionWithName:name block:block];
+    [self addOptionWithLongName:longName block:block];
+}
+
+- (void)addOptionWithName:(unichar)name longName:(NSString *)longName variable:(BOOL *)variable
+{
+    [self addOptionWithName:name variable:variable];
+    [self addOptionWithLongName:longName variable:variable];
+}
+
 - (void)addOptionWithArgumentWithName:(unichar)name block:(JVOptionWithArgumentHandler)block
 {
     JVOption *option = [JVOption optionWithArgumentWithBlock:block];
@@ -184,6 +196,22 @@
     [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
         *variable = argument;
     }];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                             longName:(NSString *)longName
+                                block:(JVOptionWithArgumentHandler)block
+{
+    [self addOptionWithArgumentWithName:name block:block];
+    [self addOptionWithArgumentWithLongName:longName block:block];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                             longName:(NSString *)longName
+                             variable:(NSString __strong **)variable
+{
+    [self addOptionWithArgumentWithName:name variable:variable];
+    [self addOptionWithArgumentWithLongName:longName variable:variable];
 }
 
 - (NSArray *)failWithCode:(NSInteger)code error:(NSError **)error

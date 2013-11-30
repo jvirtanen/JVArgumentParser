@@ -40,6 +40,19 @@
     XCTAssertTrue(foo, @"Option '--foo' should be parsed");
 }
 
+- (void)testOptionAndLongOption
+{
+    __block int count = 0;
+
+    [parser addOptionWithName:'a' longName:@"foo" block:^{
+        count++;
+    }];
+
+    [parser parse:@[@"-a", @"--foo"] error:nil];
+
+    XCTAssertEqual(count, 2, @"Both option and long option should be parsed");
+}
+
 - (void)testOptionWithArgument
 {
     NSString *a = nil;
@@ -86,6 +99,19 @@
 
     XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
     XCTAssertEqualObjects(foo, @"bar", @"Option '--foo' should be parsed");
+}
+
+- (void)testOptionAndLongOptionWithArgument
+{
+    __block int count = 0;
+
+    [parser addOptionWithArgumentWithName:'a' longName:@"foo" block:^(NSString *argument){
+        count++;
+    }];
+
+    [parser parse:@[@"-abar", @"--foo=baz"] error:nil];
+
+    XCTAssertEqual(count, 2, @"Both option and long option should be parsed");
 }
 
 - (void)testOptionGroup
