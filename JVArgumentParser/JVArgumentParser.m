@@ -179,7 +179,7 @@
     [_longOptions setObject:option forKey:longName];
 }
 
-- (void)addOptionWithArgumentWithLongName:(NSString *)longName variable:(NSString *__strong *)variable
+- (void)addOptionWithArgumentWithLongName:(NSString *)longName variable:(NSString __strong **)variable
 {
     [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
         *variable = argument;
