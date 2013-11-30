@@ -108,9 +108,9 @@
 
 - (void)testOptionGroupWithOptionWithArgument
 {
-    __block BOOL a = FALSE;
-    __block NSString *b = nil;
-    __block BOOL c = FALSE;
+    BOOL a = FALSE;
+    NSString *b = nil;
+    BOOL c = FALSE;
 
     [parser addOptionWithName:'a' variable:&a];
     [parser addOptionWithArgumentWithName:'b' variable:&b];
@@ -126,8 +126,8 @@
 
 - (void)testEndOfOptions
 {
-    __block BOOL a = FALSE;
-    __block BOOL b = FALSE;
+    BOOL a = FALSE;
+    BOOL b = FALSE;
 
     [parser addOptionWithName:'a' variable:&a];
     [parser addOptionWithName:'b' variable:&b];
@@ -141,8 +141,8 @@
 
 - (void)testParsing
 {
-    __block NSString *d = nil;
-    __block NSString *f = nil;
+    NSString *d = nil;
+    NSString *f = nil;
 
     [parser addOptionWithArgumentWithName:'d' variable:&d];
     [parser addOptionWithArgumentWithName:'f' variable:&f];
@@ -156,8 +156,8 @@
 
 - (void)testParsingArgcArgv
 {
-    __block NSString *d = nil;
-    __block NSString *f = nil;
+    NSString *d = nil;
+    NSString *f = nil;
 
     [parser addOptionWithArgumentWithName:'d' variable:&d];
     [parser addOptionWithArgumentWithName:'f' variable:&f];
@@ -189,8 +189,8 @@
 
 - (void)testMissingOptionArgumentBetweenOptions
 {
-    __block NSString *a = nil;
-    __block BOOL b = FALSE;
+    NSString *a = nil;
+    BOOL b = FALSE;
 
     [parser addOptionWithArgumentWithName:'a' variable:&a];
     [parser addOptionWithName:'b' variable:&b];
