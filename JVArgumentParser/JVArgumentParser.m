@@ -55,17 +55,36 @@
         }
 
         if ([arg hasPrefix:@"--"]) {
-            NSString *name = [arg substringFromIndex:2];
-            JVOption *option = [_longOptions objectForKey:name];
+            NSUInteger equalsIndex = [arg rangeOfString:@"="].location;
+            if (equalsIndex != NSNotFound) {
+                NSString *name = [arg substringWithRange:NSMakeRange(2, equalsIndex - 2)];
+                JVOption *option = [_longOptions objectForKey:name];
 
-            if (option == nil)
-                return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+                if (option == nil)
+                    return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
 
-            if (option.hasArgument) {
-                optionAwaitingArgument = option;
-            } else {
-                JVOptionHandler block = option.block;
-                block();
+                if (!option.hasArgument)
+                    return [self failWithCode:JVArgumentParserErrorSuperfluousArgument error:error];
+
+                if (equalsIndex == arg.length - 1)
+                    return [self failWithCode:JVArgumentParserErrorMissingArgument error:error];
+
+                JVOptionWithArgumentHandler block = option.block;
+                block([arg substringFromIndex:equalsIndex + 1]);
+            }
+            else {
+                NSString *name = [arg substringFromIndex:2];
+                JVOption *option = [_longOptions objectForKey:name];
+
+                if (option == nil)
+                    return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+
+                if (option.hasArgument) {
+                    optionAwaitingArgument = option;
+                } else {
+                    JVOptionHandler block = option.block;
+                    block();
+                }
             }
         }
         else if ([arg hasPrefix:@"-"]) {
