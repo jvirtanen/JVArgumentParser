@@ -6,6 +6,16 @@ arguments. It respects the POSIX and GNU command line conventions and has
 an easy yet versantile API.
 
 
+Installation
+------------
+
+Install using [CocoaPods][]:
+
+    pod "JVArgumentParser", "~> 0.1"
+
+  [CocoaPods]: http://cocoapods.org/
+
+
 License
 -------
 
