@@ -26,6 +26,100 @@
     return self;
 }
 
+- (void)addOptionWithName:(unichar)name
+                    block:(JVOptionHandler)block
+{
+    JVOption *option = [JVOption optionWithBlock:block];
+
+    [_options setObject:option forKey:[self keyForName:name]];
+}
+
+- (void)addOptionWithName:(unichar)name
+                 variable:(BOOL *)variable
+{
+    [self addOptionWithName:name block:^{
+        *variable = TRUE;
+    }];
+}
+
+- (void)addOptionWithLongName:(NSString *)longName
+                        block:(JVOptionHandler)block
+{
+    JVOption *option = [JVOption optionWithBlock:block];
+
+    [_longOptions setObject:option forKey:longName];
+}
+
+- (void)addOptionWithLongName:(NSString *)longName
+                     variable:(BOOL *)variable
+{
+    [self addOptionWithLongName:longName block:^{
+        *variable = TRUE;
+    }];
+}
+
+- (void)addOptionWithName:(unichar)name
+                 longName:(NSString *)longName
+                    block:(JVOptionHandler)block
+{
+    [self addOptionWithName:name block:block];
+    [self addOptionWithLongName:longName block:block];
+}
+
+- (void)addOptionWithName:(unichar)name
+                 longName:(NSString *)longName
+                 variable:(BOOL *)variable
+{
+    [self addOptionWithName:name variable:variable];
+    [self addOptionWithLongName:longName variable:variable];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                                block:(JVOptionWithArgumentHandler)block
+{
+    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
+    [_options setObject:option forKey:[self keyForName:name]];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                             variable:(NSString __strong **)variable
+{
+    [self addOptionWithArgumentWithName:name block:^(NSString *argument){
+        *variable = argument;
+    }];
+}
+
+- (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                                    block:(JVOptionWithArgumentHandler)block
+{
+    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
+    [_longOptions setObject:option forKey:longName];
+}
+
+- (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                                 variable:(NSString __strong **)variable
+{
+    [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
+        *variable = argument;
+    }];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                             longName:(NSString *)longName
+                                block:(JVOptionWithArgumentHandler)block
+{
+    [self addOptionWithArgumentWithName:name block:block];
+    [self addOptionWithArgumentWithLongName:longName block:block];
+}
+
+- (void)addOptionWithArgumentWithName:(unichar)name
+                             longName:(NSString *)longName
+                             variable:(NSString __strong **)variable
+{
+    [self addOptionWithArgumentWithName:name variable:variable];
+    [self addOptionWithArgumentWithLongName:longName variable:variable];
+}
+
 - (NSArray *)parse:(NSArray *)args
              error:(NSError **)error
 {
@@ -131,100 +225,6 @@
     NSArray *arguments = [NSArray arrayWithCStrings:argv count:argc encoding:encoding];
 
     return [self parse:[arguments subarrayWithRange:NSMakeRange(1, arguments.count - 1)] error:error];
-}
-
-- (void)addOptionWithName:(unichar)name
-                    block:(JVOptionHandler)block
-{
-    JVOption *option = [JVOption optionWithBlock:block];
-
-    [_options setObject:option forKey:[self keyForName:name]];
-}
-
-- (void)addOptionWithName:(unichar)name
-                 variable:(BOOL *)variable
-{
-    [self addOptionWithName:name block:^{
-        *variable = TRUE;
-    }];
-}
-
-- (void)addOptionWithLongName:(NSString *)longName
-                        block:(JVOptionHandler)block
-{
-    JVOption *option = [JVOption optionWithBlock:block];
-
-    [_longOptions setObject:option forKey:longName];
-}
-
-- (void)addOptionWithLongName:(NSString *)longName
-                     variable:(BOOL *)variable
-{
-    [self addOptionWithLongName:longName block:^{
-        *variable = TRUE;
-    }];
-}
-
-- (void)addOptionWithName:(unichar)name
-                 longName:(NSString *)longName
-                    block:(JVOptionHandler)block
-{
-    [self addOptionWithName:name block:block];
-    [self addOptionWithLongName:longName block:block];
-}
-
-- (void)addOptionWithName:(unichar)name
-                 longName:(NSString *)longName
-                 variable:(BOOL *)variable
-{
-    [self addOptionWithName:name variable:variable];
-    [self addOptionWithLongName:longName variable:variable];
-}
-
-- (void)addOptionWithArgumentWithName:(unichar)name
-                                block:(JVOptionWithArgumentHandler)block
-{
-    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
-    [_options setObject:option forKey:[self keyForName:name]];
-}
-
-- (void)addOptionWithArgumentWithName:(unichar)name
-                             variable:(NSString __strong **)variable
-{
-    [self addOptionWithArgumentWithName:name block:^(NSString *argument){
-        *variable = argument;
-    }];
-}
-
-- (void)addOptionWithArgumentWithLongName:(NSString *)longName
-                                    block:(JVOptionWithArgumentHandler)block
-{
-    JVOption *option = [JVOption optionWithArgumentWithBlock:block];
-    [_longOptions setObject:option forKey:longName];
-}
-
-- (void)addOptionWithArgumentWithLongName:(NSString *)longName
-                                 variable:(NSString __strong **)variable
-{
-    [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
-        *variable = argument;
-    }];
-}
-
-- (void)addOptionWithArgumentWithName:(unichar)name
-                             longName:(NSString *)longName
-                                block:(JVOptionWithArgumentHandler)block
-{
-    [self addOptionWithArgumentWithName:name block:block];
-    [self addOptionWithArgumentWithLongName:longName block:block];
-}
-
-- (void)addOptionWithArgumentWithName:(unichar)name
-                             longName:(NSString *)longName
-                             variable:(NSString __strong **)variable
-{
-    [self addOptionWithArgumentWithName:name variable:variable];
-    [self addOptionWithArgumentWithLongName:longName variable:variable];
 }
 
 - (NSArray *)failWithCode:(NSInteger)code error:(NSError **)error

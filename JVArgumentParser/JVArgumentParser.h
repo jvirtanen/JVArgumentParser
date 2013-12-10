@@ -6,12 +6,6 @@
 
 @interface JVArgumentParser : NSObject
 + (instancetype)argumentParser;
-- (NSArray *)parse:(NSArray *)args
-             error:(NSError **)error;
-- (NSArray *)parseArgc:(int)argc
-                  argv:(const char **)argv
-              encoding:(NSStringEncoding)encoding
-                 error:(NSError **)error;
 - (void)addOptionWithName:(unichar)name
                     block:(JVOptionHandler)block;
 - (void)addOptionWithName:(unichar)name
@@ -40,4 +34,10 @@
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
                              variable:(NSString __strong **)variable;
+- (NSArray *)parse:(NSArray *)args
+             error:(NSError **)error;
+- (NSArray *)parseArgc:(int)argc
+                  argv:(const char **)argv
+              encoding:(NSStringEncoding)encoding
+                 error:(NSError **)error;
 @end
