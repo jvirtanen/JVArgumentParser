@@ -38,12 +38,11 @@
 /**
  * Add an option.
  *
- * @param name      The name of the option.
- * @param variable  A pointer to a variable that will be set to `TRUE` on the
- *                  option.
+ * @param name   The name of the option.
+ * @param value  A pointer to a value that will be set to `TRUE` on the option.
  */
 - (void)addOptionWithName:(unichar)name
-                 variable:(BOOL *)variable;
+                    value:(BOOL *)value;
 
 /**
  * Add a long option.
@@ -58,11 +57,11 @@
  * Add a long option.
  *
  * @param longName  The name of the long option.
- * @param variable  A pointer to a variable that will be set to `TRUE` on the
+ * @param value     A pointer to a value that will be set to `TRUE` on the
  *                  option.
  */
 - (void)addOptionWithLongName:(NSString *)longName
-                     variable:(BOOL *)variable;
+                        value:(BOOL *)value;
 
 /**
  * Add an option and a corresponding long option.
@@ -80,12 +79,12 @@
  *
  * @param name      The name of the option.
  * @param longName  The name of the long option.
- * @param variable  A pointer to a variable that will be set to `TRUE` on the
+ * @param value     A pointer to a value that will be set to `TRUE` on the
  *                  options.
  */
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
-                 variable:(BOOL *)variable;
+                    value:(BOOL *)value;
 
 /**
  * Add an option that takes an argument.
@@ -99,11 +98,11 @@
 /**
  * Add an option that takes an argument.
  *
- * @param name      The name of the option.
- * @param variable  A pointer to a variable that will be set on the option.
+ * @param name   The name of the option.
+ * @param value  A pointer to a value that will be set on the option.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
-                             variable:(NSString __strong **)variable;
+                                value:(NSString __strong **)value;
 
 /**
  * Add a long option that takes an argument.
@@ -118,10 +117,10 @@
  * Add a long option that takes an argument.
  *
  * @param longName  The name of the long option.
- * @param variable  A pointer to a variable that will be set on the option.
+ * @param value     A pointer to a value that will be set on the option.
  */
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
-                                 variable:(NSString __strong **)variable;
+                                    value:(NSString __strong **)value;
 
 /**
  * Add an option and a corresponding long option that take an argument.
@@ -139,11 +138,11 @@
  *
  * @param name      The name of the option.
  * @param longName  The name of the long option.
- * @param variable  A pointer to a variable that will be set on the options.
+ * @param value     A pointer to a value that will be set on the options.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
-                             variable:(NSString __strong **)variable;
+                                value:(NSString __strong **)value;
 
 /**
  * @name Parsing Command Line Arguments

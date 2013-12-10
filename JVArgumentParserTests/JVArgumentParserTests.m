@@ -20,7 +20,7 @@
 {
     BOOL a = FALSE;
 
-    [parser addOptionWithName:'a' variable:&a];
+    [parser addOptionWithName:'a' value:&a];
 
     NSArray *arguments = [parser parse:@[@"-a"] error:nil];
 
@@ -32,7 +32,7 @@
 {
     BOOL foo = FALSE;
 
-    [parser addOptionWithLongName:@"foo" variable:&foo];
+    [parser addOptionWithLongName:@"foo" value:&foo];
 
     NSArray *arguments = [parser parse:@[@"--foo"] error:nil];
 
@@ -57,7 +57,7 @@
 {
     NSString *a = nil;
 
-    [parser addOptionWithArgumentWithName:'a' variable:&a];
+    [parser addOptionWithArgumentWithName:'a' value:&a];
 
     NSArray *arguments = [parser parse:@[@"-a", @"foo"] error:nil];
 
@@ -69,7 +69,7 @@
 {
     NSString *a = nil;
 
-    [parser addOptionWithArgumentWithName:'a' variable:&a];
+    [parser addOptionWithArgumentWithName:'a' value:&a];
 
     NSArray *arguments = [parser parse:@[@"-afoo"] error:nil];
 
@@ -81,7 +81,7 @@
 {
     NSString *foo = nil;
 
-    [parser addOptionWithArgumentWithLongName:@"foo" variable:&foo];
+    [parser addOptionWithArgumentWithLongName:@"foo" value:&foo];
 
     NSArray *arguments = [parser parse:@[@"--foo", @"bar"] error:nil];
 
@@ -93,7 +93,7 @@
 {
     NSString *foo = nil;
 
-    [parser addOptionWithArgumentWithLongName:@"foo" variable:&foo];
+    [parser addOptionWithArgumentWithLongName:@"foo" value:&foo];
 
     NSArray *arguments = [parser parse:@[@"--foo=bar"] error:nil];
 
@@ -120,9 +120,9 @@
     BOOL b = FALSE;
     BOOL c = FALSE;
 
-    [parser addOptionWithName:'a' variable:&a];
-    [parser addOptionWithName:'b' variable:&b];
-    [parser addOptionWithName:'c' variable:&c];
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
+    [parser addOptionWithName:'c' value:&c];
 
     NSArray *arguments = [parser parse:@[@"-ab"] error:nil];
 
@@ -138,9 +138,9 @@
     BOOL b = FALSE;
     NSString *c = nil;
 
-    [parser addOptionWithName:'a' variable:&a];
-    [parser addOptionWithName:'b' variable:&b];
-    [parser addOptionWithArgumentWithName:'c' variable:&c];
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
+    [parser addOptionWithArgumentWithName:'c' value:&c];
 
     NSArray *arguments = [parser parse:@[@"-abc", @"foo"] error:nil];
 
@@ -156,9 +156,9 @@
     BOOL b = FALSE;
     NSString *c = nil;
 
-    [parser addOptionWithName:'a' variable:&a];
-    [parser addOptionWithName:'b' variable:&b];
-    [parser addOptionWithArgumentWithName:'c' variable:&c];
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
+    [parser addOptionWithArgumentWithName:'c' value:&c];
 
     NSArray *arguments = [parser parse:@[@"-abcfoo"] error:nil];
 
@@ -174,9 +174,9 @@
     NSString *b = nil;
     BOOL c = FALSE;
 
-    [parser addOptionWithName:'a' variable:&a];
-    [parser addOptionWithArgumentWithName:'b' variable:&b];
-    [parser addOptionWithName:'c' variable:&c];
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithArgumentWithName:'b' value:&b];
+    [parser addOptionWithName:'c' value:&c];
 
     NSArray *arguments = [parser parse:@[@"-abc"] error:nil];
 
@@ -191,8 +191,8 @@
     BOOL a = FALSE;
     BOOL b = FALSE;
 
-    [parser addOptionWithName:'a' variable:&a];
-    [parser addOptionWithName:'b' variable:&b];
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
 
     NSArray *arguments = [parser parse:@[@"-a", @"--", @"-b"] error:nil];
 
@@ -206,8 +206,8 @@
     NSString *d = nil;
     NSString *f = nil;
 
-    [parser addOptionWithArgumentWithName:'d' variable:&d];
-    [parser addOptionWithArgumentWithName:'f' variable:&f];
+    [parser addOptionWithArgumentWithName:'d' value:&d];
+    [parser addOptionWithArgumentWithName:'f' value:&f];
 
     NSArray *arguments = [parser parse:@[@"-f", @"1,3", @"-d", @",", @"foo.csv"] error:nil];
 
@@ -221,8 +221,8 @@
     NSString *d = nil;
     NSString *f = nil;
 
-    [parser addOptionWithArgumentWithName:'d' variable:&d];
-    [parser addOptionWithArgumentWithName:'f' variable:&f];
+    [parser addOptionWithArgumentWithName:'d' value:&d];
+    [parser addOptionWithArgumentWithName:'f' value:&f];
 
     int argc = 6;
     const char *argv[] = { "/usr/bin/cut", "-f", "1,3", "-d", ",", "foo.csv" };
@@ -254,8 +254,8 @@
     NSString *a = nil;
     BOOL b = FALSE;
 
-    [parser addOptionWithArgumentWithName:'a' variable:&a];
-    [parser addOptionWithName:'b' variable:&b];
+    [parser addOptionWithArgumentWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
 
     NSArray *arguments = [parser parse:@[@"-a", @"-b"] error:nil];
 

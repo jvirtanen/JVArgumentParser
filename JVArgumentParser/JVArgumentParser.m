@@ -35,10 +35,10 @@
 }
 
 - (void)addOptionWithName:(unichar)name
-                 variable:(BOOL *)variable
+                    value:(BOOL *)value
 {
     [self addOptionWithName:name block:^{
-        *variable = TRUE;
+        *value = TRUE;
     }];
 }
 
@@ -51,10 +51,10 @@
 }
 
 - (void)addOptionWithLongName:(NSString *)longName
-                     variable:(BOOL *)variable
+                        value:(BOOL *)value
 {
     [self addOptionWithLongName:longName block:^{
-        *variable = TRUE;
+        *value = TRUE;
     }];
 }
 
@@ -68,10 +68,10 @@
 
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
-                 variable:(BOOL *)variable
+                    value:(BOOL *)value
 {
-    [self addOptionWithName:name variable:variable];
-    [self addOptionWithLongName:longName variable:variable];
+    [self addOptionWithName:name value:value];
+    [self addOptionWithLongName:longName value:value];
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
@@ -82,10 +82,10 @@
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
-                             variable:(NSString __strong **)variable
+                                value:(NSString __strong **)value
 {
     [self addOptionWithArgumentWithName:name block:^(NSString *argument){
-        *variable = argument;
+        *value = argument;
     }];
 }
 
@@ -97,10 +97,10 @@
 }
 
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
-                                 variable:(NSString __strong **)variable
+                                    value:(NSString __strong **)value
 {
     [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
-        *variable = argument;
+        *value = argument;
     }];
 }
 
@@ -114,10 +114,10 @@
 
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
-                             variable:(NSString __strong **)variable
+                                value:(NSString __strong **)value
 {
-    [self addOptionWithArgumentWithName:name variable:variable];
-    [self addOptionWithArgumentWithLongName:longName variable:variable];
+    [self addOptionWithArgumentWithName:name value:value];
+    [self addOptionWithArgumentWithLongName:longName value:value];
 }
 
 - (NSArray *)parse:(NSArray *)args
