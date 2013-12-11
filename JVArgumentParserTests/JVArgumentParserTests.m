@@ -333,4 +333,11 @@
     XCTAssertEqual(error.code, JVArgumentParserErrorSuperfluousArgument, @"Unknown error code");
 }
 
+- (void)testNoErrorInformation
+{
+    NSArray *arguments = [parser parse:@[@"-a"] error:nil];
+
+    XCTAssertNil(arguments, @"There should be no arguments");
+}
+
 @end
