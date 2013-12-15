@@ -24,8 +24,8 @@
 
     NSArray *arguments = [parser parse:@[@"-a"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(a);
 }
 
 - (void)testLongOption
@@ -36,8 +36,8 @@
 
     NSArray *arguments = [parser parse:@[@"--foo"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(foo, @"Option '--foo' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(foo);
 }
 
 - (void)testOptionAndLongOption
@@ -50,7 +50,7 @@
 
     [parser parse:@[@"-a", @"--foo"] error:nil];
 
-    XCTAssertEqual(count, 2, @"Both option and long option should be parsed");
+    XCTAssertEqual(count, 2);
 }
 
 - (void)testOptionWithArgument
@@ -61,8 +61,8 @@
 
     NSArray *arguments = [parser parse:@[@"-a", @"foo"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertEqualObjects(a, @"foo");
 }
 
 - (void)testOptionWithArgumentWithoutOptionalSpaceInBetween
@@ -73,8 +73,8 @@
 
     NSArray *arguments = [parser parse:@[@"-afoo"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertEqualObjects(a, @"foo", @"Option '-a' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertEqualObjects(a, @"foo");
 }
 
 - (void)testLongOptionWithArgument
@@ -85,8 +85,8 @@
 
     NSArray *arguments = [parser parse:@[@"--foo", @"bar"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertEqualObjects(foo, @"bar", @"Option '--foo' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertEqualObjects(foo, @"bar");
 }
 
 - (void)testLongOptionWithArgumentWithEqualsInBetween
@@ -97,8 +97,8 @@
 
     NSArray *arguments = [parser parse:@[@"--foo=bar"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertEqualObjects(foo, @"bar", @"Option '--foo' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertEqualObjects(foo, @"bar");
 }
 
 - (void)testOptionAndLongOptionWithArgument
@@ -111,7 +111,7 @@
 
     [parser parse:@[@"-abar", @"--foo=baz"] error:nil];
 
-    XCTAssertEqual(count, 2, @"Both option and long option should be parsed");
+    XCTAssertEqual(count, 2);
 }
 
 - (void)testOptionGroup
@@ -126,10 +126,10 @@
 
     NSArray *arguments = [parser parse:@[@"-ab"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
-    XCTAssertTrue(b, @"Option '-b' should be parsed");
-    XCTAssertFalse(c, @"Option '-c' should not be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(a);
+    XCTAssertTrue(b);
+    XCTAssertFalse(c);
 }
 
 - (void)testOptionGroupTerminatedByOptionWithArgument
@@ -144,10 +144,10 @@
 
     NSArray *arguments = [parser parse:@[@"-abc", @"foo"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
-    XCTAssertTrue(b, @"Option '-b' should be parsed");
-    XCTAssertEqualObjects(c, @"foo", @"Option '-c' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(a);
+    XCTAssertTrue(b);
+    XCTAssertEqualObjects(c, @"foo");
 }
 
 - (void)testOptionGroupTerminatedByOptionWithArgumentWithoutOptionalSpaceInBetween
@@ -162,10 +162,10 @@
 
     NSArray *arguments = [parser parse:@[@"-abcfoo"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
-    XCTAssertTrue(b, @"Option '-b' should be parsed");
-    XCTAssertEqualObjects(c, @"foo", @"Option '-c' should be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(a);
+    XCTAssertTrue(b);
+    XCTAssertEqualObjects(c, @"foo");
 }
 
 - (void)testOptionGroupWithOptionWithArgument
@@ -180,10 +180,10 @@
 
     NSArray *arguments = [parser parse:@[@"-abc"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
-    XCTAssertEqualObjects(b, @"c", @"Option '-b' should be parsed");
-    XCTAssertFalse(c, @"Option '-c' should not be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertTrue(a);
+    XCTAssertEqualObjects(b, @"c");
+    XCTAssertFalse(c);
 }
 
 - (void)testEndOfOptions
@@ -196,9 +196,9 @@
 
     NSArray *arguments = [parser parse:@[@"-a", @"--", @"-b"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[@"-b"], @"There should be arguments");
-    XCTAssertTrue(a, @"Option '-a' should be parsed");
-    XCTAssertFalse(b, @"Option '-b' should not be parsed");
+    XCTAssertEqualObjects(arguments, @[@"-b"]);
+    XCTAssertTrue(a);
+    XCTAssertFalse(b);
 }
 
 - (void)testParsing
@@ -211,9 +211,9 @@
 
     NSArray *arguments = [parser parse:@[@"-f", @"1,3", @"-d", @",", @"foo.csv"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[@"foo.csv"], @"There should be arguments");
-    XCTAssertEqualObjects(d, @",", @"Option '-d' should be parsed");
-    XCTAssertEqualObjects(f, @"1,3", @"Option '-f' should be parsed");
+    XCTAssertEqualObjects(arguments, @[@"foo.csv"]);
+    XCTAssertEqualObjects(d, @",");
+    XCTAssertEqualObjects(f, @"1,3");
 }
 
 - (void)testParsingArgcArgv
@@ -229,9 +229,9 @@
 
     NSArray *arguments = [parser parseArgc:argc argv:argv encoding:NSUTF8StringEncoding error:nil];
 
-    XCTAssertEqualObjects(arguments, @[@"foo.csv"], @"There should be arguments");
-    XCTAssertEqualObjects(d, @",", @"Option '-d' should be parsed");
-    XCTAssertEqualObjects(f, @"1,3", @"Option '-f' should be parsed");
+    XCTAssertEqualObjects(arguments, @[@"foo.csv"]);
+    XCTAssertEqualObjects(d, @",");
+    XCTAssertEqualObjects(f, @"1,3");
 }
 
 - (void)testMissingOptionArgument
@@ -243,10 +243,10 @@
 
     NSArray *arguments = [parser parse:@[@"-a"] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Wrong error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument, @"Wrong error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument);
 }
 
 - (void)testMissingOptionArgumentBetweenOptions
@@ -259,9 +259,9 @@
 
     NSArray *arguments = [parser parse:@[@"-a", @"-b"] error:nil];
 
-    XCTAssertEqualObjects(arguments, @[], @"There should be no arguments");
-    XCTAssertEqualObjects(a, @"-b", @"Option '-a' should be parsed");
-    XCTAssertFalse(b, @"Option '-b' should not be parsed");
+    XCTAssertEqualObjects(arguments, @[]);
+    XCTAssertEqualObjects(a, @"-b");
+    XCTAssertFalse(b);
 }
 
 - (void)testMissingOptionArgumentForLongOption
@@ -273,10 +273,10 @@
 
     NSArray *arguments = [parser parse:@[@"--foo="] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument, @"Unknown error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument);
 }
 
 - (void)testUnknownOption
@@ -285,10 +285,10 @@
 
     NSArray *arguments = [parser parse:@[@"-a"] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
 }
 
 - (void)testUnknownLongOption
@@ -297,10 +297,10 @@
 
     NSArray *arguments = [parser parse:@[@"--foo"] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
 }
 
 - (void)testUnknownOptionInGroup
@@ -312,10 +312,10 @@
 
     NSArray *arguments = [parser parse:@[@"-ab"] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption, @"Unknown error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
 }
 
 - (void)testSuperfluousOptionArgument
@@ -327,17 +327,17 @@
 
     NSArray *arguments = [parser parse:@[@"--foo=bar"] error:&error];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
-    XCTAssertNotNil(error, @"There should be an error");
-    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain, @"Unknown error domain");
-    XCTAssertEqual(error.code, JVArgumentParserErrorSuperfluousArgument, @"Unknown error code");
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorSuperfluousArgument);
 }
 
 - (void)testNoErrorInformation
 {
     NSArray *arguments = [parser parse:@[@"-a"] error:nil];
 
-    XCTAssertNil(arguments, @"There should be no arguments");
+    XCTAssertNil(arguments);
 }
 
 @end
