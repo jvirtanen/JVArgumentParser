@@ -272,6 +272,22 @@
     [parser addOptionWithArgumentWithLongName:@"foo" block:^(NSString *argument) {
     }];
 
+    NSArray *arguments = [parser parse:@[@"--foo"] error:&error];
+
+    XCTAssertNil(arguments);
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
+    XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument);
+    XCTAssertEqualObjects(error.localizedDescription, @"Missing argument: --foo");
+}
+
+- (void)testMissingOptionArgumentForLongOptionWithEquals
+{
+    NSError *error = nil;
+
+    [parser addOptionWithArgumentWithLongName:@"foo" block:^(NSString *argument) {
+    }];
+
     NSArray *arguments = [parser parse:@[@"--foo="] error:&error];
 
     XCTAssertNil(arguments);
