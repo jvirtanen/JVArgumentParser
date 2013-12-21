@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C73CC281864C3DB002746BC /* JVAwaitingArgument.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C73CC271864C3DB002746BC /* JVAwaitingArgument.h */; };
+		1C73CC2A1864C704002746BC /* JVAwaitingArgument.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C73CC291864C704002746BC /* JVAwaitingArgument.m */; };
 		1C9F71D2183C21A400DFA9AA /* JVOptionWithArgumentHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C9F71D1183C21A400DFA9AA /* JVOptionWithArgumentHandler.h */; };
 		1CC734F51837BB3A00F6AD9E /* JVOptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CC734F41837BB3A00F6AD9E /* JVOptionHandler.h */; };
 		1CCB52121835709100E54539 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCB52111835709100E54539 /* Cocoa.framework */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C73CC271864C3DB002746BC /* JVAwaitingArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVAwaitingArgument.h; sourceTree = "<group>"; };
+		1C73CC291864C704002746BC /* JVAwaitingArgument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVAwaitingArgument.m; sourceTree = "<group>"; };
 		1C9F71D1183C21A400DFA9AA /* JVOptionWithArgumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVOptionWithArgumentHandler.h; sourceTree = "<group>"; };
 		1CC734F41837BB3A00F6AD9E /* JVOptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVOptionHandler.h; sourceTree = "<group>"; };
 		1CCB520E1835709100E54539 /* libJVArgumentParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJVArgumentParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +131,8 @@
 				1CCB523A183571AB00E54539 /* JVArgumentParser.m */,
 				1CCB523B183571AB00E54539 /* JVArgumentParserError.h */,
 				1CCB523C183571AB00E54539 /* JVArgumentParserError.m */,
+				1C73CC271864C3DB002746BC /* JVAwaitingArgument.h */,
+				1C73CC291864C704002746BC /* JVAwaitingArgument.m */,
 				1CCB523D183571AB00E54539 /* JVOption.h */,
 				1CCB523E183571AB00E54539 /* JVOption.m */,
 				1CC734F41837BB3A00F6AD9E /* JVOptionHandler.h */,
@@ -155,6 +161,7 @@
 				1CCB5241183571AB00E54539 /* JVArgumentParser.h in Headers */,
 				1CCB5245183571AB00E54539 /* JVOption.h in Headers */,
 				1CCB5243183571AB00E54539 /* JVArgumentParserError.h in Headers */,
+				1C73CC281864C3DB002746BC /* JVAwaitingArgument.h in Headers */,
 				1CC734F51837BB3A00F6AD9E /* JVOptionHandler.h in Headers */,
 				1CCB5247183571AB00E54539 /* NSArray+JVArgumentParser.h in Headers */,
 				1C9F71D2183C21A400DFA9AA /* JVOptionWithArgumentHandler.h in Headers */,
@@ -242,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CCB5248183571AB00E54539 /* NSArray+JVArgumentParser.m in Sources */,
+				1C73CC2A1864C704002746BC /* JVAwaitingArgument.m in Sources */,
 				1CCB5244183571AB00E54539 /* JVArgumentParserError.m in Sources */,
 				1CCB5242183571AB00E54539 /* JVArgumentParser.m in Sources */,
 				1CCB5246183571AB00E54539 /* JVOption.m in Sources */,
@@ -252,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C73CC2B1864C70F002746BC /* JVAwaitingArgument.m in Sources */,
 				1CCB522F1835709100E54539 /* JVArgumentParserTests.m in Sources */,
 				1CCB524A1835735100E54539 /* JVArgumentParserError.m in Sources */,
 				1CCB524B1835735300E54539 /* JVOption.m in Sources */,

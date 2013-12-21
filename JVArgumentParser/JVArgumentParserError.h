@@ -7,3 +7,5 @@ extern NSString *const JVArgumentParserErrorDomain;
 #define JVArgumentParserErrorMissingArgument ((NSInteger)2)
 
 #define JVArgumentParserErrorSuperfluousArgument ((NSInteger)3)
+
+NSString *JVArgumentParserErrorToString(NSInteger code);

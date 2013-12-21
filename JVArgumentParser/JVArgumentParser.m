@@ -1,10 +1,13 @@
 #import "JVArgumentParser.h"
 #import "JVArgumentParserError.h"
+#import "JVAwaitingArgument.h"
 #import "JVOption.h"
 #import "NSArray+JVArgumentParser.h"
 
 @interface JVArgumentParser()
-- (NSArray *)failWithCode:(NSInteger)code error:(NSError **)error;
+- (NSArray *)failWithCode:(NSInteger)code
+                  context:(NSString *)context
+                    error:(NSError **)error;
 - (NSNumber *)keyForName:(unichar)name;
 @end
 
@@ -124,18 +127,18 @@
              error:(NSError **)error
 {
     NSMutableArray *arguments = [NSMutableArray array];
-    JVOption *optionAwaitingArgument = nil;
+    JVAwaitingArgument *awaitingArgument = nil;
 
     NSUInteger i;
 
     for (i = 0; i < args.count; i++) {
         NSString *arg = args[i];
 
-        if (optionAwaitingArgument != nil) {
-            JVOptionWithArgumentHandler block = optionAwaitingArgument.block;
+        if (awaitingArgument != nil) {
+            JVOptionWithArgumentHandler block = awaitingArgument.option.block;
             block(arg);
 
-            optionAwaitingArgument = nil;
+            awaitingArgument = nil;
             continue;
         }
 
@@ -156,13 +159,19 @@
                 JVOption *option = [_longOptions objectForKey:name];
 
                 if (option == nil)
-                    return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+                    return [self failWithCode:JVArgumentParserErrorUnknownOption
+                                      context:arg
+                                        error:error];
 
                 if (!option.hasArgument)
-                    return [self failWithCode:JVArgumentParserErrorSuperfluousArgument error:error];
+                    return [self failWithCode:JVArgumentParserErrorSuperfluousArgument
+                                      context:arg
+                                        error:error];
 
                 if (equalsIndex == arg.length - 1)
-                    return [self failWithCode:JVArgumentParserErrorMissingArgument error:error];
+                    return [self failWithCode:JVArgumentParserErrorMissingArgument
+                                      context:arg
+                                        error:error];
 
                 JVOptionWithArgumentHandler block = option.block;
                 block([arg substringFromIndex:equalsIndex + 1]);
@@ -172,10 +181,13 @@
                 JVOption *option = [_longOptions objectForKey:name];
 
                 if (option == nil)
-                    return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+                    return [self failWithCode:JVArgumentParserErrorUnknownOption
+                                      context:arg
+                                        error:error];
 
                 if (option.hasArgument) {
-                    optionAwaitingArgument = option;
+                    awaitingArgument = [JVAwaitingArgument awaitingArgumentWithContext:arg
+                                                                                option:option];
                 } else {
                     JVOptionHandler block = option.block;
                     block();
@@ -188,14 +200,17 @@
                 JVOption *option = [_options objectForKey:[self keyForName:name]];
 
                 if (option == nil)
-                    return [self failWithCode:JVArgumentParserErrorUnknownOption error:error];
+                    return [self failWithCode:JVArgumentParserErrorUnknownOption
+                                      context:arg
+                                        error:error];
 
                 if (option.hasArgument) {
                     if (arg.length > j + 1) {
                         JVOptionWithArgumentHandler block = option.block;
                         block([arg substringFromIndex:j + 1]);
                     } else {
-                        optionAwaitingArgument = option;
+                        awaitingArgument = [JVAwaitingArgument awaitingArgumentWithContext:arg
+                                                                                    option:option];
                     }
                     break;
                 } else {
@@ -208,8 +223,10 @@
         }
     }
 
-    if (optionAwaitingArgument != nil)
-        return [self failWithCode:JVArgumentParserErrorMissingArgument error:error];
+    if (awaitingArgument != nil)
+        return [self failWithCode:JVArgumentParserErrorMissingArgument
+                          context:awaitingArgument.context
+                            error:error];
 
     while (i < args.count)
         [arguments addObject:args[i++]];
@@ -227,10 +244,19 @@
     return [self parse:[arguments subarrayWithRange:NSMakeRange(1, arguments.count - 1)] error:error];
 }
 
-- (NSArray *)failWithCode:(NSInteger)code error:(NSError **)error
+- (NSArray *)failWithCode:(NSInteger)code
+                  context:(NSString *)context
+                    error:(NSError **)error
 {
-    if (error != nil)
-        *error = [NSError errorWithDomain:JVArgumentParserErrorDomain code:code userInfo:nil];
+    if (error != nil) {
+        NSString *message = JVArgumentParserErrorToString(code);
+        NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", message, context];
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey: localizedDescription};
+
+        *error = [NSError errorWithDomain:JVArgumentParserErrorDomain
+                                     code:code
+                                 userInfo:userInfo];
+    }
 
     return nil;
 }

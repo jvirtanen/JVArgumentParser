@@ -247,6 +247,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument);
+    XCTAssertEqualObjects(error.localizedDescription, @"Missing argument: -a");
 }
 
 - (void)testMissingOptionArgumentBetweenOptions
@@ -277,6 +278,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorMissingArgument);
+    XCTAssertEqualObjects(error.localizedDescription, @"Missing argument: --foo=");
 }
 
 - (void)testUnknownOption
@@ -289,6 +291,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
+    XCTAssertEqualObjects(error.localizedDescription, @"Unknown option: -a");
 }
 
 - (void)testUnknownLongOption
@@ -301,6 +304,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
+    XCTAssertEqualObjects(error.localizedDescription, @"Unknown option: --foo");
 }
 
 - (void)testUnknownOptionInGroup
@@ -316,6 +320,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorUnknownOption);
+    XCTAssertEqualObjects(error.localizedDescription, @"Unknown option: -ab");
 }
 
 - (void)testSuperfluousOptionArgument
@@ -331,6 +336,7 @@
     XCTAssertNotNil(error);
     XCTAssertEqualObjects(error.domain, JVArgumentParserErrorDomain);
     XCTAssertEqual(error.code, JVArgumentParserErrorSuperfluousArgument);
+    XCTAssertEqualObjects(error.localizedDescription, @"Superfluous argument: --foo=bar");
 }
 
 - (void)testNoErrorInformation
