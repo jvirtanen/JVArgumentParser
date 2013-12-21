@@ -11,7 +11,7 @@ Installation
 
 Install using [CocoaPods][]:
 
-    pod "JVArgumentParser", "~> 0.1.0"
+    pod "JVArgumentParser", "~> 0.2.0"
 
   [CocoaPods]: http://cocoapods.org/
 
