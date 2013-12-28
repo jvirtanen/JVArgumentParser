@@ -186,6 +186,21 @@
     XCTAssertFalse(c);
 }
 
+- (void)testHyphen
+{
+    BOOL a = FALSE;
+    BOOL b = FALSE;
+
+    [parser addOptionWithName:'a' value:&a];
+    [parser addOptionWithName:'b' value:&b];
+
+    NSArray *arguments = [parser parse:@[@"-a", @"-", @"-b"] error:nil];
+
+    XCTAssertEqualObjects(arguments, @[@"-"]);
+    XCTAssertTrue(a);
+    XCTAssertTrue(b);
+}
+
 - (void)testEndOfOptions
 {
     BOOL a = FALSE;
