@@ -30,6 +30,7 @@
 }
 
 - (void)addOptionWithName:(unichar)name
+              description:(NSString *)description
                     block:(JVOptionHandler)block
 {
     JVOption *option = [JVOption optionWithBlock:block];
@@ -38,14 +39,16 @@
 }
 
 - (void)addOptionWithName:(unichar)name
+              description:(NSString *)description
                     value:(BOOL *)value
 {
-    [self addOptionWithName:name block:^{
+    [self addOptionWithName:name description:description block:^{
         *value = TRUE;
     }];
 }
 
 - (void)addOptionWithLongName:(NSString *)longName
+                  description:(NSString *)description
                         block:(JVOptionHandler)block
 {
     JVOption *option = [JVOption optionWithBlock:block];
@@ -54,30 +57,34 @@
 }
 
 - (void)addOptionWithLongName:(NSString *)longName
+                  description:(NSString *)description
                         value:(BOOL *)value
 {
-    [self addOptionWithLongName:longName block:^{
+    [self addOptionWithLongName:longName description:description block:^{
         *value = TRUE;
     }];
 }
 
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
+              description:(NSString *)description
                     block:(JVOptionHandler)block
 {
-    [self addOptionWithName:name block:block];
-    [self addOptionWithLongName:longName block:block];
+    [self addOptionWithName:name description:description block:block];
+    [self addOptionWithLongName:longName description:description block:block];
 }
 
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
+              description:(NSString *)description
                     value:(BOOL *)value
 {
-    [self addOptionWithName:name value:value];
-    [self addOptionWithLongName:longName value:value];
+    [self addOptionWithName:name description:description value:value];
+    [self addOptionWithLongName:longName description:description value:value];
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
+                          description:(NSString *)description
                                 block:(JVOptionWithArgumentHandler)block
 {
     JVOption *option = [JVOption optionWithArgumentWithBlock:block];
@@ -85,14 +92,18 @@
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
+                          description:(NSString *)description
                                 value:(NSString __strong **)value
 {
-    [self addOptionWithArgumentWithName:name block:^(NSString *argument){
+    [self addOptionWithArgumentWithName:name
+                            description:description
+                                  block:^(NSString *argument){
         *value = argument;
     }];
 }
 
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                              description:(NSString *)description
                                     block:(JVOptionWithArgumentHandler)block
 {
     JVOption *option = [JVOption optionWithArgumentWithBlock:block];
@@ -100,27 +111,40 @@
 }
 
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                              description:(NSString *)description
                                     value:(NSString __strong **)value
 {
-    [self addOptionWithArgumentWithLongName:longName block:^(NSString *argument){
+    [self addOptionWithArgumentWithLongName:longName
+                                description:description
+                                      block:^(NSString *argument){
         *value = argument;
     }];
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
+                          description:(NSString *)description
                                 block:(JVOptionWithArgumentHandler)block
 {
-    [self addOptionWithArgumentWithName:name block:block];
-    [self addOptionWithArgumentWithLongName:longName block:block];
+    [self addOptionWithArgumentWithName:name
+                            description:description
+                                  block:block];
+    [self addOptionWithArgumentWithLongName:longName
+                                description:description
+                                      block:block];
 }
 
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
+                          description:(NSString *)description
                                 value:(NSString __strong **)value
 {
-    [self addOptionWithArgumentWithName:name value:value];
-    [self addOptionWithArgumentWithLongName:longName value:value];
+    [self addOptionWithArgumentWithName:name
+                            description:description
+                                  value:value];
+    [self addOptionWithArgumentWithLongName:longName
+                                description:description
+                                      value:value];
 }
 
 - (NSArray *)parse:(NSArray *)args

@@ -29,119 +29,144 @@
 /**
  * Add an option.
  *
- * @param name   The name of the option.
- * @param block  A block that will be called on the option.
+ * @param name         The name of the option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the option.
  */
 - (void)addOptionWithName:(unichar)name
+              description:(NSString *)description
                     block:(JVOptionHandler)block;
 
 /**
  * Add an option.
  *
- * @param name   The name of the option.
- * @param value  A pointer to a value that will be set to `TRUE` on the option.
+ * @param name         The name of the option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set to `TRUE` on the
+ *                     option.
  */
 - (void)addOptionWithName:(unichar)name
+              description:(NSString *)description
                     value:(BOOL *)value;
 
 /**
  * Add a long option.
  *
- * @param longName  The name of the long option.
- * @param block     A block that will be called on the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the option.
  */
 - (void)addOptionWithLongName:(NSString *)longName
+                  description:(NSString *)description
                         block:(JVOptionHandler)block;
 
 /**
  * Add a long option.
  *
- * @param longName  The name of the long option.
- * @param value     A pointer to a value that will be set to `TRUE` on the
- *                  option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set to `TRUE` on the
+ *                     option.
  */
 - (void)addOptionWithLongName:(NSString *)longName
+                  description:(NSString *)description
                         value:(BOOL *)value;
 
 /**
  * Add an option and a corresponding long option.
  *
- * @param name      The name of the option.
- * @param longName  The name of the long option.
- * @param block     A block that will be called on the options.
+ * @param name         The name of the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the options.
  */
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
+              description:(NSString *)description
                     block:(JVOptionHandler)block;
 
 /**
  * Add an option and a corresponding long option.
  *
- * @param name      The name of the option.
- * @param longName  The name of the long option.
- * @param value     A pointer to a value that will be set to `TRUE` on the
- *                  options.
+ * @param name         The name of the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set to `TRUE` on the
+ *                     options.
  */
 - (void)addOptionWithName:(unichar)name
                  longName:(NSString *)longName
+              description:(NSString *)description
                     value:(BOOL *)value;
 
 /**
  * Add an option that takes an argument.
  *
- * @param name   The name of the option.
- * @param block  A block that will be called on the option.
+ * @param name         The name of the option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the option.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
+                          description:(NSString *)description
                                 block:(JVOptionWithArgumentHandler)block;
 
 /**
  * Add an option that takes an argument.
  *
- * @param name   The name of the option.
- * @param value  A pointer to a value that will be set on the option.
+ * @param name         The name of the option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set on the option.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
+                          description:(NSString *)description
                                 value:(NSString __strong **)value;
 
 /**
  * Add a long option that takes an argument.
  *
- * @param longName  The name of the long option.
- * @param block     A block that will be called on the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the option.
  */
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                              description:(NSString *)description
                                     block:(JVOptionWithArgumentHandler)block;
 
 /**
  * Add a long option that takes an argument.
  *
- * @param longName  The name of the long option.
- * @param value     A pointer to a value that will be set on the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set on the option.
  */
 - (void)addOptionWithArgumentWithLongName:(NSString *)longName
+                              description:(NSString *)description
                                     value:(NSString __strong **)value;
 
 /**
  * Add an option and a corresponding long option that take an argument.
  *
- * @param name      The name of the option.
- * @param longName  The name of the long option.
- * @param block     A block that will be called on the options.
+ * @param name         The name of the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param block        A block that will be called on the options.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
+                          description:(NSString *)description
                                 block:(JVOptionWithArgumentHandler)block;
 
 /**
  * Add an option and a corresponding long option that take an argument.
  *
- * @param name      The name of the option.
- * @param longName  The name of the long option.
- * @param value     A pointer to a value that will be set on the options.
+ * @param name         The name of the option.
+ * @param longName     The name of the long option.
+ * @param description  A description of the option or `nil`.
+ * @param value        A pointer to a value that will be set on the options.
  */
 - (void)addOptionWithArgumentWithName:(unichar)name
                              longName:(NSString *)longName
+                          description:(NSString *)description
                                 value:(NSString __strong **)value;
 
 /**
